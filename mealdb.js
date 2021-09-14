@@ -1,6 +1,18 @@
+const searchField = document.getElementById("search-field");
+const buttonSearch = document.getElementById("button-search");
+
+searchField.addEventListener("keypress", function (event) {
+  // event.preventDefault();
+  // console.log('key-triggered', event.key)
+  if (event.key == 'Enter') {
+    // console.log('inside-clicked')
+    buttonSearch.click();
+  }
+});
+
 document.getElementById("write-something").style.display = "none";
 document.getElementById("no-result").style.display = "none";
-document.getElementById("spinner").style.display = 'none'
+document.getElementById("spinner").style.display = "none";
 const searchFood = () => {
   const searchField = document.getElementById("search-field");
   const searchText = searchField.value;
@@ -9,17 +21,14 @@ const searchFood = () => {
   searchField.value = "";
   if (searchText == "") {
     document.getElementById("write-something").style.display = "block";
-    
   } else {
-     document.getElementById("spinner").style.display = "block";
+    document.getElementById("spinner").style.display = "block";
     const url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${searchText}`;
     //load data
     fetch(url)
       .then((response) => response.json())
       .then((data) => displaySearchResult(data.meals));
-       
   }
-
 };
 const displaySearchResult = (meals) => {
   console.log(meals);
@@ -66,7 +75,9 @@ const displayMealDetail = (meal) => {
   const div = document.createElement("div");
   div.classList.add("card");
   mealDetails.innerHTML = `
-    <img src="${meal.strMealThumb}" class="card-img-top img-fluid w-75" alt="...">
+    <img src="${
+      meal.strMealThumb
+    }" class="card-img-top img-fluid w-75" alt="...">
             <div class="card-body">
                 <h5 class="card-title">${meal.strMeal}</h5>
                 <p class="card-text"> ${meal.strInstructions.slice(0, 150)}</p>
